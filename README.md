@@ -11,27 +11,28 @@
 
 - 在项目根目录执行：
 
-  ```
+  ```ruby
   bundle install
   ```
 
 - 构建数据库：
 
-  ```
+  ```ruby
   rails db:migrate
   ```
 
 - 插入初始数据（可选）：
 
-  ```
+  ```ruby
   rails db:init_data
   ```
 
 - `yarn` 配置：
 
-  ```
+  ```ruby
   yarn install --ignore-engines
   yarn build:css
+  ```
 
 - 启动项目：
 
