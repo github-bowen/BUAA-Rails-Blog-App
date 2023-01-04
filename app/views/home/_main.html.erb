@@ -1,0 +1,21 @@
+<!--<p class="notice"><%#= notice %></p>-->
+<!--<p class="alert"><%#= alert %></p>-->
+
+<div id="main-panel" style="float: inherit; border-left: 1px solid; padding: 0">
+  <div class="container-lg">
+    <% if flash[:error] %>
+      <%= render 'home/errors' %>
+    <% elsif flash[:warning] %>
+      <%= render 'home/warnings' %>
+    <% elsif notice %>
+      <%= render 'home/notice' %>
+    <% elsif flash[:notice] %>
+      <%= render 'home/notice' %>
+    <% elsif flash[:alert] %>
+      <%= render 'home/alert' %>
+    <% end %>
+    <div class="row">
+      <%= yield %>
+    </div>
+  </div>
+</div>

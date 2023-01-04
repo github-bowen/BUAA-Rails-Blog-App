@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @airline_company %>
+
+<div>
+  <%= link_to "Edit this airline company", edit_airline_company_path(@airline_company) %> |
+  <%= link_to "Back to airline companies", airline_companies_path %>
+
+  <%= button_to "Destroy this airline company", @airline_company, method: :delete %>
+</div>

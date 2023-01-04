@@ -1,0 +1,36 @@
+<div class="text-success" style="font-style: italic">
+  发布于 <%= blog.created_at.localtime.strftime '%Y-%m-%d %H:%M:%S' %>，
+  <%= time_ago_in_words blog.created_at.localtime %>前。
+</div>
+
+<div id="<%= dom_id blog %>" class="mt-2">
+  <p>
+    点赞数：<%= blog.votes %>
+    <%#= form_with(model: blog, url: blog_url(blog)) do |form| %>
+      <%#= form.submit class: "bi-hand-thumbs-up" %>
+    <%# end %>
+  </p>
+
+  <p>
+    浏览次数：<%= blog.view_times %>
+  </p>
+
+  <p>
+    <strong class="text-decoration-underline">发表用户:</strong>
+    <%= blog.user.username %>
+  </p>
+
+  <p>
+    <strong class="text-decoration-underline">标题:</strong>
+    <%= blog.title %>
+  </p>
+
+
+  <strong class="text-decoration-underline">内容:</strong>
+  <div class="bi-text-left" style=" font-size: medium">
+    <p>
+      <%= blog.content %>
+    </p>
+  </div>
+
+</div>

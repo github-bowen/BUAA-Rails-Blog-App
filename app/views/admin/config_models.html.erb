@@ -1,0 +1,61 @@
+<div class="m-4 col-10 mx-auto mt-3">
+
+  <div class="text-center mt-2 mb-4">
+    <h2 style="font-weight: bold">管理酒店房间、酒店、航空公司、航空路线（管理员操作）</h2>
+  </div>
+
+  <div class="card text-center mb-lg-5 shadow">
+    <div class="card-header mb-0">
+      <ul class="nav nav-tabs card-header-tabs" id="myTab">
+
+        <li class="nav-item">
+          <a href="#room_type" class="nav-link active" data-bs-toggle="tab">酒店房间类型</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#hotel" class="nav-link" data-bs-toggle="tab">酒店</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#airline_company" class="nav-link" data-bs-toggle="tab">航空公司</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#air_route" class="nav-link" data-bs-toggle="tab">航空路线</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="card-body mt-0">
+      <div class="tab-content">
+
+        <div class="tab-pane fade show active" id="room_type">
+          <p class="card-text">
+            <%= render 'admin/room_types' %>
+          </p>
+        </div>
+
+        <div class="tab-pane fade" id="hotel">
+          <p class="card-text">
+            <%= render 'admin/hotels' %>
+          </p>
+        </div>
+
+        <div class="tab-pane fade" id="airline_company">
+          <p class="card-text">
+            <%= render 'admin/airline_companies' %>
+          </p>
+        </div>
+
+        <div class="tab-pane fade" id="air_route">
+          <p class="card-text">
+            <%= render 'admin/air_routes' %>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="col-6 card shadow-lg mb-lg-3 mt-lg-5 mx-auto">
+  <div class="card-body">
+    <h2 class="card-title text-center mt-3 mb-3" style="font-weight: bold; font-size: xx-large">
+      注册新账号
+    </h2>
+    <div class="card-text">
+
+      <%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
+        <%= render "users/shared/error_messages", resource: resource %>
+
+        <div class="field form-group mb-2">
+          <%= f.label :avatar, "头像", style: "font-size: large; ", class: "mb-1"%><br/>
+          <% if resource.avatar.attached? %>
+            <% image_tag(resource.get_or_default_avatar, style: "width: 100px; height: 100px; object-fit: cover;", class: "mb-2") %>
+          <% else %>
+            <% image_tag("default_avatar.png", style: "width: 100px; height: 100px; object-fit: cover;", class: "mb-2") %>
+          <% end %>
+          <%= f.file_field :avatar, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :username, "用户名", style: "font-size: large; " %><br/>
+          <%= f.text_field :username, autofocus: true, autocomplete: "username",
+                           class: "form-control mt-1 mb-3", placeholder: "请输入用户名" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :email, "邮箱", style: "font-size: large; " %><br/>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+                            class: "form-control mt-1 mb-3", placeholder: "请输入邮箱" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password, "设置密码", style: "font-size: large;" %>
+          <% if @minimum_password_length %>
+            <em>(至少 <%= @minimum_password_length %> 字符)</em>
+          <% end %><br/>
+          <%= f.password_field :password, autocomplete: "new-password",
+                               class: "form-control mt-1 mb-3", placeholder: "请设置密码" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation, "密码确认", style: "font-size: large;" %><br/>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                               class: "form-control mt-1 mb-3", placeholder: "请重复输入密码" %>
+        </div>
+
+        <div class="actions mb-3">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <%= f.submit "注册", class: "btn btn-success" %>
+            <%= render "users/shared/links", resource: resource %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>
+

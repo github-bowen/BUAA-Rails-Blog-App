@@ -1,0 +1,46 @@
+<%= form_with(model: room_type, id: "#{dom_id(room_type)}_form") do |form| %>
+  <%# if room_type.errors.any? %>
+<!--    <div style="color: red">-->
+<!--      <h2><%#= pluralize(room_type.errors.count, "error") %> prohibited this room_type from being saved:</h2>-->
+
+<!--      <ul>-->
+        <%# room_type.errors.each do |error| %>
+<!--          <li><%#= error.full_message %></li>-->
+        <%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+  <%# end %>
+  <div class="form-group mb-3">
+    <%#= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "选择该房间类型所属酒店", class: "form-select" %>
+    <%= form.label :hotel, "所属酒店", class: "mb-2",
+                   style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.select(:hotel_id, options_from_collection_for_select(Hotel.all, :id, :name),
+                    {:prompt => '选择所属酒店'},
+                    {:class => "form-control form-select slct-box"}) %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :name, "酒店房间类型名", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "请输入新的酒店房间类型名" %>
+  </div>
+
+  <div class="form-group mb-0">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+      <%= form.label :has_window, "是否有窗户:",
+                     class: "mt-0 mb-0",
+                     style: "display: block; font-size: large; font-weight: bold" %>
+      <%= form.check_box :has_window,
+                         class: "form-check-input mt-2 mb-0" %>
+    </div>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :price, "价格（元/每晚）", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.number_field :price, placeholder: "请输入该酒店房间类型的价格", class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.submit "确认", class: "btn btn-primary" %>
+    <%= link_to "返回", admin_crud_path, class: "btn btn-outline-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,56 @@
+<%= form_with(model: air_route, id: "#{dom_id(air_route)}_form") do |form| %>
+  <%# if room_type.errors.any? %>
+  <!--    <div style="color: red">-->
+  <!--      <h2><%#= pluralize(room_type.errors.count, "error") %> prohibited this room_type from being saved:</h2>-->
+
+  <!--      <ul>-->
+  <%# room_type.errors.each do |error| %>
+  <!--          <li><%#= error.full_message %></li>-->
+  <%# end %>
+  <!--      </ul>-->
+  <!--    </div>-->
+  <%# end %>
+  <div class="form-group mb-3">
+    <%#= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "选择该房间类型所属酒店", class: "form-select" %>
+    <%= form.label :airline_company, "所属航空公司", class: "mb-2",
+                   style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.select(:airline_company_id, options_from_collection_for_select(AirlineCompany.all, :id, :name),
+                    {:prompt => '选择所属航空公司'},
+                    {:class => "form-control form-select slct-box"}) %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :from, "出发地", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.text_field :from, class: "form-control", placeholder: "请输入出发地" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :to, "目的地", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.text_field :to, class: "form-control", placeholder: "请输入目的地" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :departure_time, "起飞时间", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.time_field :departure_time, class: "form-control", placeholder: "请输入起飞时间" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :landing_time, "着陆时间", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.time_field :landing_time, class: "form-control", placeholder: "请输入着陆时间" %>
+  </div>
+
+  <div class="form-group mb-0">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+      <%= form.label :is_direct, "是否直飞:",
+                     class: "mt-0 mb-0",
+                     style: "display: block; font-size: large; font-weight: bold" %>
+      <%= form.check_box :is_direct,
+                         class: "form-check-input mt-2 mb-0" %>
+    </div>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.submit "确认", class: "btn btn-primary" %>
+    <%= link_to "返回", admin_crud_path, class: "btn btn-outline-primary" %>
+  </div>
+<% end %>

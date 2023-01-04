@@ -1,0 +1,11 @@
+<div class="col-10 mx-auto mt-3 mb-0">
+
+  <%# flash[:error].size %>
+  <% flash[:warning].each do |warning| %>
+    <li class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= warning %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </li>
+  <% end %>
+  <%#= flash[:error] %>
+</div>

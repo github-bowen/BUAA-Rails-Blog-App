@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @tourist_route %>
+
+<div>
+  <%= link_to "Edit this tourist route", edit_tourist_route_path(@tourist_route) %> |
+  <%= link_to "Back to tourist routes", tourist_routes_path %>
+
+  <%= button_to "Destroy this tourist route", @tourist_route, method: :delete %>
+</div>

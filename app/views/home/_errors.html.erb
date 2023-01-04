@@ -1,0 +1,18 @@
+<div class="col-10 mx-auto mt-3 mb-0">
+
+  <%# flash[:error].size %>
+  <% if flash[:error].is_a? String %>
+    <li class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:error] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </li>
+  <% else %>
+    <% flash[:error].each do |error| %>
+      <li class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </li>
+    <% end %>
+  <% end %>
+  <%#= flash[:error] %>
+</div>

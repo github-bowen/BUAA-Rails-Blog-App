@@ -1,0 +1,147 @@
+<footer class="navbar-fixed-bottom">
+<!--  <div class="container-fluid" style="background-color: #010d28 ;">-->
+<!--    <nav class="border-bottom-0">-->
+
+<!--      <div style="text-align:start; color: #FFFFFF ">Copyright LBH &copy; 2022</div>-->
+
+<!--    </nav>-->
+<!--  </div>-->
+  <div class="container-fluid" style="background-color:#343143 ;">
+    <nav class="pull-left" style="z-index: 999; position: fixed">
+      <!-- 为博客底部添加音乐组件 -->
+      <div id="player" class="aplayer" data-order="random" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-volume="0.6"></div>
+      <link href="https://files.cnblogs.com/files/shwee/APlayer.min_v1.10.1.css" rel="stylesheet">
+      <script src="https://files.cnblogs.com/files/shwee/APlayer.min_v1.10.1.js"></script>
+
+
+      <script type="text/javascript">
+          const ap = new APlayer({
+              container: document.getElementById('player'),
+              listMaxHeight: 500,
+              preload: 'preload',
+              order: 'random',
+              fixed: true,
+              autoplay: true, //自动播放
+              audio: [
+                  {
+                      name: 'Tiny Stars',
+                      artist: '伊達さゆり,Liyuu',
+                      url: 'http://music.163.com/song/media/outer/url?id=1875023978.mp3',
+                      cover: 'http://p1.music.126.net/nxVlQ_YDM-lAeXKGQCJuHA==/109951166720188216.jpg?param=300x300',
+                  },
+                  {
+                      name: 'これから',
+                      artist: 'μ\'s',
+                      url: 'http://music.163.com/song/media/outer/url?id=39227312.mp3',
+                      cover: 'http://p2.music.126.net/ZYzmh0gJdPwuI97RsrU19w==/1364493954125118.jpg?param=300x300',
+                  },
+                  {
+                      name: 'ENJOY IT!',
+                      artist: 'QU4RTZ',
+                      url: 'http://music.163.com/song/media/outer/url?id=1946480538.mp3',
+                      cover: 'http://p2.music.126.net/tGgK4Tx_2r0i4gr3Do4BbA==/109951167402056592.jpg?param=300x300',
+                  },
+                  {
+                      name: 'Wishing',
+                      artist: '水瀬いのり',
+                      url: 'http://music.163.com/song/media/outer/url?id=426501183.mp3',
+                      cover: 'http://p1.music.126.net/AAq1qOhfyrClGK1mg3mGYQ==/18776360067593424.jpg?param=300x300',
+                  },
+                  {
+                      name: '一番の宝物',
+                      artist: 'karuta',
+                      url: 'http://music.163.com/song/media/outer/url?id=471987.mp3',
+                      cover: 'http://p1.music.126.net/eyw6kIJBcGpwk31id-XrUA==/3275445142255309.jpg?param=300x300',
+                  },
+                  {
+                      name: 'unlasting',
+                      artist: 'LiSA',
+                      url: 'http://music.163.com/song/media/outer/url?id=1397725153.mp3',
+                      cover: 'http://p2.music.126.net/0NHhwrfHStBHuH4F4i5NVQ==/109951166202147859.jpg?param=300x300',
+                  },
+                  // {
+                  // name: 'コネクト',
+                  // artist: 'ClariS',
+                  // url: 'http://music.163.com/song/media/outer/url?id=496902069.mp3',
+                  // cover: 'http://p1.music.126.net/8yRbrWndyoHCJERNxCa6iA==/109951165048947194.jpg?param=300x300',
+                  // },
+                  {
+                      name: 'Fly Me to the Star',
+                      artist: '小山百代,三森すずこ',
+                      url: 'http://music.163.com/song/media/outer/url?id=1297747109.mp3',
+                      cover: 'http://p1.music.126.net/YpbmjrfGLRTAqAf6O-KtMQ==/109951163435314394.jpg?param=300x300',
+                  },
+                  // {
+                  // name: '初恋',
+                  // artist: '東山奈央',
+                  // url: 'http://music.163.com/song/media/outer/url?id=480097183.mp3',
+                  // cover: 'http://p2.music.126.net/3Cpj_jrscHguYjjFeO1yHg==/19242552997853427.jpg?param=130y130',
+                  // },
+                  {
+                      name: '夜空はなんでも知ってるの?',
+                      artist: 'CYaRon!',
+                      url: 'http://music.163.com/song/media/outer/url?id=412327089.mp3',
+                      cover: 'http://p1.music.126.net/XrMrEKH4c3mVz4Y4G_4v-g==/1384285148178144.jpg?param=130y130',
+                  },
+                  {
+                      name: '未来は風のように',
+                      artist: 'liella',
+                      url: 'http://music.163.com/song/media/outer/url?id=1866489156.mp3',
+                      cover: 'http://p1.music.126.net/iWt0q0ersvH7LNqouZabDA==/109951166246695724.jpg?param=130y130',
+                  },
+                  {
+                      name: 'CHASE!',
+                      artist: '楠木ともり',
+                      url: 'http://music.163.com/song/media/outer/url?id=1327263606.mp3',
+                      cover: 'http://p1.music.126.net/c3J33dJVeG04hKnUKRZVKg==/109951163679690943.jpg?param=130y130',
+                  },
+                  {
+                      name: 'Snow halation',
+                      artist: 'μ\'s',
+                      url: 'http://music.163.com/song/media/outer/url?id=28768036.mp3',
+                      cover: 'http://p2.music.126.net/How8TEv1Lpjtxk3t7i4K9A==/109951165816679166.jpg?param=130y130',
+                  },
+                  {
+                      name: '恋のうた (feat. 由崎司)',
+                      artist: 'Yunomi,鬼頭明里',
+                      url: 'http://music.163.com/song/media/outer/url?id=1484336476.mp3',
+                      cover: 'http://p2.music.126.net/xzbNPFaq89sLHKFC9K9Qjw==/109951165478440773.jpg?param=300x300',
+                  },
+                  {
+                      name: '天使にふれたよ!',
+                      artist: '豊崎愛生/日笠陽子/佐藤聡美/寿美菜子',
+                      url: 'http://music.163.com/song/media/outer/url?id=26201958.mp3',
+                      cover: 'http://p1.music.126.net/B_sCLXthAHgoVEMIRNU1hw==/109951163559682176.jpg?param=130y130',
+                  },
+                  {
+                      name: 'ギターと孤独と蒼い惑星',
+                      artist: '結束バンド',
+                      url: 'http://music.163.com/song/media/outer/url?id=1991012773.mp3',
+                      cover: 'http://p1.music.126.net/rfstzrVK05hCPjU-4mzSFA==/109951167983448236.jpg?param=130y130',
+                  },
+                  {
+                      name: '青春コンプレックス',
+                      artist: '結束バンド',
+                      url: 'http://music.163.com/song/media/outer/url?id=1983527215.mp3',
+                      cover: "http://p1.music.126.net/VXqVAs8P4ko7j7ft94KUiw==/109951167898699349.jpg?param=130y130",
+                  },
+                  /*
+                  {
+                  name: '空も心も晴れるから,
+                  artist: 'Aqours',
+                  url: 'http://music.163.com/song/media/outer/url?id=437605448&.mp3',
+                  cover: 'http://p1.music.126.net/cKAmPeauS24VSdwZAXl52Q==/3413983640690538.jpg?param=130y130',
+                  },
+                  */
+
+              ]
+          });
+          ap.play();
+
+          //ap.play();
+      </script>
+
+
+    </nav>
+  </div>
+</footer>

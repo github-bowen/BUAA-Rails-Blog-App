@@ -1,0 +1,161 @@
+<div class="row mt-5">
+
+  <div class="col-lg-3" style="margin-left: 100px; margin-right: 20px">
+    <div class="card text-center border-dark shadow shadow-lg">
+      <div class="card-body border-1">
+        <h2 class="card-title mt-3 mb-3"
+            style="font-weight: bold; font-size: xx-large">
+          个人信息
+        </h2>
+
+        <div class="card-text">
+
+          <div class="field">
+            <%= image_tag(current_user.get_or_default_avatar,
+                          style: "width: 120px; height: 120px; object-fit: cover; object-position: center",
+                          class: "rounded-top") %>
+          </div>
+
+          <div class="field mt-3">
+            <div class="text-decoration-underline mb-1" style="font-size: large;">
+              <%= label :username, "用户名：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.username %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="text-decoration-underline mb-1" style="font-size: large;">
+              <%= label :email, "邮箱：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.email %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="mb-1 mt-0" style="font-size: large;">
+              <%= label :role, "用户类型：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.get_role %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="mb-1 mt-0" style="font-size: large;">
+              <%= label :created_at, "注册时间：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.created_at.localtime.strftime '%Y-%m-%d %H:%M:%S' %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="mb-1 mt-0" style="font-size: large;">
+              <%= label :blogs_num, "发表的博客数量：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.blogs.size %>
+            </div>
+          </div>
+
+          <div class="field mb-4">
+            <div class="mb-1 mt-0" style="font-size: large;">
+              <%= label :comments_num, "总被评论次数：", style: "font-weight: bold; font-size: large;" %>
+              <% count = 0 %>
+              <% current_user.blogs.each do |blog| %>
+                <% count += blog.comments.size %>
+              <% end %>
+              <%= count %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4" style="margin-right: 20px">
+    <div class="card text-center border-dark shadow shadow-lg">
+      <h2 class="mt-4 mb-0 text-center" style="font-weight: bold; font-size: xx-large">修改资料</h2>
+      <div class="card-body">
+        <%# resource_name.to_s.humanize %>
+        <div class="card-text">
+          <%= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f| %>
+            <%= render "users/shared/error_messages", resource: resource %>
+
+            <!--            <div class="field form-group">-->
+            <!--              <div class="text-decoration-underline mb-1" style="font-size: large;">-->
+            <%#= f.label :username, "用户名：", style: "font-weight: bold; font-size: large;" %>
+            <%#= current_user.username %>
+            <!--              </div>-->
+            <!--            </div>-->
+            <div class="field form-group mb-2">
+              <%= f.label :avatar, "新头像：", style: "font-weight: bold; font-size: large; ",
+                          class: "mb-1" %><br/>
+              <% if resource.avatar.attached? %>
+                <% image_tag(resource.get_or_default_avatar, style: "width: 100px; height: 100px; object-fit: cover;", class: "mb-2") %>
+              <% else %>
+                <% image_tag("default_avatar.png", style: "width: 100px; height: 100px; object-fit: cover;", class: "mb-2") %>
+              <% end %>
+              <%= f.file_field :avatar, class: "form-control" %>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <div class="field form-group mt-2">
+              <%= f.label :current_password, "当前密码：", style: "font-weight: bold;" %>
+              <i>(仅修改密码/更改头像时需要在此填写)</i><br/>
+              <%= f.password_field :current_password, autocomplete: "current-password",
+                                   class: "form-control mt-1 mb-1", placeholder: "请输入当前密码" %>
+            </div>
+
+            <div class="field form-group mt-2">
+              <%= f.label :password, "新密码：", style: "font-weight: bold;" %>
+              <i>(至少 <%= @minimum_password_length %> 字符，若不更改密码请放空)</i><br/>
+              <%# if @minimum_password_length %>
+              <!--      <em>至少 <%#= @minimum_password_length %> 字符</em>-->
+              <%# end %>
+
+              <%= f.password_field :password, autocomplete: "new-password",
+                                   class: "form-control mt-1", placeholder: "请输入新密码" %>
+            </div>
+
+            <div class="field form-group mt-2">
+              <%= f.label :password_confirmation, "确认新密码：", style: "font-weight: bold;" %><br/>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                                   class: "form-control mt-1 mb-3", placeholder: "请再次输入新密码" %>
+            </div>
+
+            <div class="actions mb-1 form-group">
+              <%= f.submit "确认更改", class: "btn btn-success" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-lg-3">
+    <div class="card text-center border-danger shadow shadow-lg">
+      <div class="card-body border-danger border-1">
+        <h2 class="card-title mt-3 mb-4"
+            style="font-weight: bold; font-size: xx-large">
+          注销个人账号
+        </h2>
+        <div class="card-text">
+          <dev class="bi bi-exclamation-triangle mt-lg-5 mb-lg-5" style="color: #ba0900; font-size: xxx-large"></dev>
+          <p class="mt-4" style="font-size: large">
+            注意！<br/>
+            点击下面"注销"按钮<br/>
+            将会删除该账号的<strong>所有</strong><br/>
+            个人博客、旅游线路等信息，<br/>
+            并且该操作<strong>不可恢复</strong>！！！
+          </p>
+          <br/>
+          <%= button_to "注销", user_registration_path,
+                        method: :delete, form: { data: { turbo_confirm: '您确定要注销账号吗？' } },
+                        class: "btn btn-danger" %>
+
+          <br/>
+          <%#= link_to "Back", :back %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

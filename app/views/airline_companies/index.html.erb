@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Airline companies</h1>
+
+<div id="airline_companies">
+  <% @airline_companies.each do |airline_company| %>
+    <%= render airline_company %>
+    <p>
+      <%= link_to "Show this airline company", airline_company %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New airline company", new_airline_company_path %>

@@ -1,0 +1,44 @@
+<div class="col-6 card shadow-lg mb-lg-3 mt-lg-5 mx-auto">
+  <div class="card-body">
+    <h2 class="card-title text-center mt-3 mb-3" style="font-weight: bold; font-size: xx-large">
+      欢迎登录爱旅游——旅行小助手！
+    </h2>
+    <div class="card-text">
+
+      <%= form_for(resource, as: resource_name, url: new_user_session_path) do |f| %>
+        <%= render "users/shared/error_messages", resource: resource %>
+
+        <div class="field form-group">
+          <%= f.label :login, "邮箱/用户名", style: "font-size: large; " %><br/>
+          <%= f.text_field :login, autofocus: true, autocomplete: "email or username",
+                            class: "form-control mt-1 mb-3", placeholder: "请输入邮箱或用户名" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :password, "密码", style: "font-size: large;" %><br/>
+          <%= f.password_field :password, autocomplete: "current-password",
+                               class: "form-control mt-1 mb-3", placeholder: "请输入密码" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field form-group form-check mt-2 mb-2">
+            <%= f.check_box :remember_me, checked: true, class: "form-check-input" %>
+            <%= f.label :remember_me, "记住密码", class: "form-check-label mb-2" %>
+          </div>
+        <% end %>
+
+        <div class="actions mb-3">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+            <%= f.submit "登录", data: { turbo: false }, class: "btn btn-success" %>
+
+            <%= render "users/shared/links", resource: resource %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

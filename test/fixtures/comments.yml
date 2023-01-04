@@ -1,0 +1,9 @@
+# Read about.html.erb fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  blog: one
+  content: MyText
+
+two:
+  blog: two
+  content: MyText

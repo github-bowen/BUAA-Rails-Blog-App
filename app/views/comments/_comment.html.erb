@@ -1,0 +1,44 @@
+<div id="<%= dom_id comment %>">
+
+  <%# TODO: label_tag 用法 %>
+  <!--  label_tag 'name'-->
+  <!--  # => <label for="name">Name</label>-->
+
+  <!--  label_tag 'name', 'Your name'-->
+  <!--  # => <label for="name">Your name</label>-->
+
+  <!--  label_tag 'name', nil, class: 'small_label'-->
+  <!--  # => <label for="name" class="small_label">Name</label>-->
+  <% user = User.find_by id: comment.user_id %>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-between mb-0">
+    <div class="text-dark mt-1" style="font-size: large">
+      <%= label_tag 'count', count.to_s + "楼", style: "font-weight: bold" %>，由用户
+      <%= label_tag "username", user.username, class: "text-decoration-underline" %> 发表：
+    </div>
+
+    <% if current_user and (comment.user_id == current_user.id) %>
+      <%= button_to "删除评论", [@blog, comment], method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    class: "btn btn-outline-danger btn-sm float-right mt-1" %>
+    <% end %>
+  </div>
+
+  <% if current_user and (comment.user_id == current_user.id) %>
+    <div class="text-success mt-0 text-start" style="font-style: italic">
+      评论于 <%= comment.created_at.localtime.strftime '%Y-%m-%d %H:%M:%S' %>，
+      <%= time_ago_in_words comment.created_at.localtime %>前<br>
+    </div>
+  <% else %>
+    <div class="text-success mt-1 text-start" style="font-style: italic">
+      评论于 <%= comment.created_at.localtime.strftime '%Y-%m-%d %H:%M:%S' %>，
+      <%= time_ago_in_words comment.created_at.localtime %>前<br>
+    </div>
+  <% end %>
+
+
+  <pre style="font-size: large"><%= comment.content %></pre>
+
+</div>
+
+

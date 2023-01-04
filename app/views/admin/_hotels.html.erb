@@ -1,0 +1,111 @@
+<!-- Grid row -->
+<div class="row mt-3">
+  <!-- Grid column -->
+  <div class="col-md-12 mt-0">
+    <h3 class="mt-0 mb-4 text-center">
+      酒店列表
+    </h3>
+    <!--            <div class="input-group md-form form-sm form-2 pl-0">-->
+    <!--              <input class="form-control my-0 py-1 pl-3 purple-border" type="text" placeholder="Search something here..." aria-label="Search">-->
+    <!--              <span class="input-group-addon waves-effect purple lighten-2" id="basic-addon1"><a><i class="fa fa-search white-text" aria-hidden="true"></i></a></span>-->
+    <!--            </div>-->
+  </div>
+  <!-- Grid column -->
+</div>
+<!-- Grid row -->
+
+<div>
+  <!--Table-->
+  <table class="table table-striped table-bordered shadow">
+    <!--Table head-->
+    <thead>
+    <tr>
+      <th>序号</th>
+      <th>酒店名</th>
+      <th>酒店类型</th>
+      <th>酒店星级</th>
+      <th>酒店位置</th>
+      <th>拥有的房间类型</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <!--Table head-->
+    <tbody>
+    <!--Table body-->
+
+    <% @hotels = Hotel.all.each.sort_by(&:name) %>
+    <% @hotels.each_with_index do |hotel, i| %>
+      <tr>
+        <th class="align-middle" scope="row">
+            <%= i + 1 %>
+        </th>
+        <td class="align-middle">
+            <%= hotel.name %>
+        </td>
+        <td class="align-middle">
+            <%= hotel.types %>
+        </td>
+        <td class="align-middle">
+            <%= hotel.rate %>
+        </td>
+        <td class="align-middle">
+          <div style="max-width: 300px">
+            <%= hotel.location %>
+          </div>
+        </td>
+        <td class="align-middle">
+          <div style="max-width: 250px">
+            <%# num = 1 %>
+            <% roomtypes = RoomType.where(:hotel_id => hotel.id) %>
+            <% roomtypes.each do |room_type| %>
+              <%= room_type.name + (room_type.has_window ? "(有窗)" : "(无窗)") %>
+              <br/>
+              <%# if num == 2 %>
+<!--                <br/>-->
+                <%# num = 1 %>
+              <%# else %>
+                <%# num = 2 %>
+              <%# end %>
+            <% end %>
+            <% if roomtypes.blank? %>
+              <%= "暂无房间" %>
+            <% end %>
+          </div>
+        </td>
+        <td class="align-middle">
+          <%# TODO: 可以通过去掉下面 link_to 和 button_to 的 mt-sm-1 和 mb-sm-1 缩小行间距 %>
+          <div class="d-grid gap-1 d-md-flex justify-content-md-center" style="min-width: 100px">
+            <%= link_to "修改", edit_hotel_path(hotel),
+                        class: "btn btn-success btn-sm mt-sm-1 mb-sm-1" %>
+            <%= button_to "删除", hotel,
+                          method: :delete, form: { data: { turbo_confirm: '您确定要删除此酒店吗？' } },
+                          class: "btn btn-danger btn-sm mt-sm-1 mb-sm-1" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+
+    <!--Table body-->
+  </table>
+  <!--Table-->
+
+  <hr class="my-5">
+
+  <div class="col-10 mx-auto">
+    <h3 class="mt-0 mb-4 text-center">
+      添加酒店
+    </h3>
+    <div class="card shadow mt-0">
+      <div class="card-body">
+        <%= render "hotels/form", hotel: Hotel.new %>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <%#= link_to "新增酒店房间类型", new_room_type_path, class: "btn btn-primary mt-sm-1 mb-sm-1" %>
+</div>

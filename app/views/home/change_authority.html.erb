@@ -1,0 +1,46 @@
+<div class="col-8 mx-auto mt-5">
+  <div class="card text-center border-dark shadow shadow-lg mb-5">
+    <div class="card-body">
+      <h1 class="card-title mt-3 mb-3" style="font-weight: bold; font-size: xx-large">修改账户权限</h1>
+
+      <div class="card-text">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <p class="mt-1 mb-4" style="font-size: large">
+              注意，此功能为测试功能！<br/>
+              由于“酒店”、“房间类型”、“航空公司”、”航空路线“<br/>
+              等数据模型的增删改查<strong>只能在管理员账户</strong>进行，<br/>
+              而普通账户中“旅游线路”的创建需要引用上述已有的数据模型，<br/>
+              为了<strong>便于演示</strong>，该页面页面提供了切换用户权限的功能！
+            </p>
+          </li>
+          <li class="list-group-item">
+            <div class="text-decoration-underline mb-1" style="font-size: large;">
+              <%= label :email, "账户邮箱：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.email %>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="mb-1 mt-0" style="font-size: large;">
+              <%= label :role, "当前用户权限：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.get_role %>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <p class="mt-2 mb-0" style="font-size: large">
+              点击下方按钮将用户类型修改为<strong><%= current_user.get_reversed_role %></strong>：<br/>
+              <%= button_to "修改权限", commit_change_autority_path,
+                            method: :post, form: { data: { turbo_confirm: '您确定要更改用户类型为' + current_user.get_reversed_role + "吗？" } },
+                            class: "mt-3 btn btn-warning" %>
+              <%# 禁止 button_to   :disabled => true %>
+            </p>
+<!--            <p class="text-secondary mb-0">-->
+<!--              暂时禁用此功能，可通过 rails c 命令在命令行通过设置 user.role = 'admin' 修改。-->
+<!--            </p>-->
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>

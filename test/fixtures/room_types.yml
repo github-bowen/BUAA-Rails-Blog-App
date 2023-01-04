@@ -1,0 +1,11 @@
+# Read about.html.erb fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  has_window: false
+  price: 1
+
+two:
+  name: MyString
+  has_window: false
+  price: 1

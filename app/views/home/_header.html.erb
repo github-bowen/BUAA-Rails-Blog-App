@@ -1,0 +1,158 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-brand" style="font-family: YouYuan, serif; font-weight: bold;">爱旅游</div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <%= link_to "主页", root_path, class: "nav-link active btn btn-outline-secondary" %>
+        </li>
+
+        <li class="nav-item mx-1">
+          <%= link_to "关于", about_path, class: "nav-link btn btn-outline-secondary" %>
+        </li>
+
+        <!--        管理账户：开始-->
+        <% if current_user %>
+          <li class="nav-item dropdown">
+            <button class="nav-link btn btn-outline-secondary dropdown-toggle"
+                    type="button" id="dropdownMenuLink"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+              管理账户
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+              <li class="dropdown-item" style="">
+                <%= link_to "账号资料管理", edit_user_registration_path,
+                            style: "color: #0a0000; text-decoration: none; font-weight: normal" %>
+              </li>
+
+              <li class="dropdown-item" style="">
+                <%= link_to "修改当前用户权限（beta）", change_authority_path,
+                            style: "color: #0a0000; text-decoration: none; font-weight: normal" %>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li class="dropdown-item" style="">
+                <%= link_to "已注册用户列表（Admin）", admin_user_list_path,
+                            style: "color: #0a0000; text-decoration: none; font-weight: normal" %>
+              </li>
+
+              <li class="dropdown-item" style="">
+                <%= link_to "酒店、房间、航空公司、航空路线管理（Admin）", admin_crud_path,
+                            style: "color: #0a0000; text-decoration: none; font-weight: normal" %>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item mx-1">
+            <%= link_to "旅游路线", tourist_routes_path, class: "nav-link btn btn-outline-secondary" %>
+          </li>
+        <% else %>
+          <li class="nav-item dropdown">
+            <button class="nav-link btn btn-outline-secondary dropdown-toggle disabled"
+                    type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+              管理账户
+            </button>
+            <ul class="dropdown-menu">
+
+              <li class="dropdown-item" style="">
+                <%= link_to "账号资料管理", edit_user_registration_path,
+                            style: "color: #0a0000; text-decoration: none" %>
+              </li>
+
+              <li class="dropdown-item" style="">
+                <%= link_to "修改当前用户权限（beta）", change_authority_path,
+                            style: "color: #0a0000; text-decoration: none" %>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li class="dropdown-item" style="">
+                <%= link_to "已注册用户列表（Admin）", admin_user_list_path,
+                            style: "color: #0a0000; text-decoration: none" %>
+              </li>
+
+              <li class="dropdown-item" style="">
+                <%= link_to "酒店、房间、航空公司、航空路线管理（Admin）", admin_crud_path,
+                            style: "color: #0a0000; text-decoration: none" %>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item mx-1">
+            <%= link_to "旅游路线", tourist_routes_path,
+                        class: "nav-link disabled btn btn-outline-secondary" %>
+          </li>
+        <% end %>
+        <!--        管理账户：结束-->
+
+        <!--        <li class="nav-item">-->
+        <!--          <a class="nav-link disabled">Disabled</a>-->
+        <!--        </li>-->
+
+      </ul>
+      <div>
+        <% if user_signed_in? %>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <strong class="text-center text-white center" style="font-weight: normal; margin-top: 6px">
+              当前用户：<%= current_user.username %>，用户类型： <%= current_user.get_role %>
+            </strong>
+            <%= link_to "编辑", edit_user_registration_path, class: "btn btn-outline-secondary auto" %>
+            <%= button_to "登出", destroy_user_session_path,
+                          method: :delete, form: { data: { turbo_confirm: '您确定要退出登录吗？' } },
+                          class: "btn btn-secondary auto" %>
+          </div>
+        <% else %>
+          <strong class="text-center text-white" style="font-weight: normal">
+            您还没有登录！
+          </strong>
+          <%= link_to "注册", new_user_registration_path, class: "btn btn-outline-secondary auto" %>
+          <%= link_to "登录", new_user_session_path, class: "btn btn-secondary auto" %>
+        <% end %>
+      </div>
+      <% if current_user %>
+        <div class="nav-item text-white mx-2">
+          <%= link_to image_tag(current_user.get_or_default_avatar,
+                                style: "width: 37px; height: 37px; object-fit: cover; object-position: center",
+                                class: "rounded-circle"), edit_user_registration_path %>
+        </div>
+      <% end %>
+
+      <!--      <form class="d-flex ms-2" role="search">-->
+      <!--        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+      <!--        <button class="btn btn-outline-success" type="submit">Search</button>-->
+      <!--      </form>-->
+    </div>
+  </div>
+</nav>
+
+<br/>
+<br/>
+<br/>
+
+<!--<div id="left-panel" style="float: right; margin: 20px; width: 100px">-->
+<%# if user_signed_in? %>
+<!--    <strong class="text-center">Hello, <%#= current_user.email %>!</strong>-->
+<%#= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-success btn-sm" %>
+<%# else %>
+<!--    <strong class="text-center">You are not logged in currently!</strong>-->
+<%#= link_to "register", new_registration_path(:user) %>
+<%#= link_to "login", new_session_path(:user) %>
+<%# end %>
+<!--</div>-->

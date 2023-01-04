@@ -1,0 +1,151 @@
+<%= form_with(model: tourist_route) do |form| %>
+  <%# if tourist_route.errors.any? %>
+  <!--    <div style="color: red">-->
+  <!--      <h2><%#= pluralize(tourist_route.errors.count, "error") %> prohibited this tourist_route from being saved:</h2>-->
+
+  <!--      <ul>-->
+  <%# tourist_route.errors.each do |error| %>
+  <!--          <li><%#= error.full_message %></li>-->
+  <%# end %>
+  <!--      </ul>-->
+  <!--    </div>-->
+  <%# end %>
+
+  <div class="form-group mb-3">
+    <%= form.label :name, "旅游路线名", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "请输入旅游路线名" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :origin, "出发地", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.text_field :origin, class: "form-control", placeholder: "请输入旅游路线的出发地" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :destination, "目的地", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.text_field :destination, class: "form-control", placeholder: "请输入旅游路线的目的地" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :total_days, "总天数", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.number_field :total_days, class: "form-control", placeholder: "请输入旅游总天数" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :cost, "总开销", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.number_field :cost, class: "form-control", placeholder: "请输入旅游总开销" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :agency, "旅行社", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+    <%= form.text_field :agency, class: "form-control", placeholder: "请输入组织的旅行社" %>
+  </div>
+
+
+  <div class="form-group mb-3">
+    <%= form.label :hotels, "酒店", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+
+    <div style="padding-left: 20px; padding-top: 10px;padding-bottom: 10px;
+      border:1px dashed #c6c7c8; display: block"
+         class="mt-2 mb-3 rounded-3 d-3">
+      <% hotels = Hotel.all %>
+      <% hotel_group_num = hotels.count / 3 %>
+      <% left_num = hotels.count % 3 %>
+
+      <%# Hotel.all.each do |hotel| %>
+      <%#= check_box_tag 'tourist_route[hotel_ids][]', hotel.id %>
+      <%#= label_tag hotel.name %>
+      <%# end %>
+
+      <% hotel_group_num.times do |i| %>
+        <%= check_box_tag 'tourist_route[hotel_ids][]', hotels[i * 3].id %>
+        <%= label_tag hotels[i * 3].name %> &emsp;
+        <%= check_box_tag 'tourist_route[hotel_ids][]', hotels[i * 3 + 1].id %>
+        <%= label_tag hotels[i * 3 + 1].name %> &emsp;
+        <%= check_box_tag 'tourist_route[hotel_ids][]', hotels[i * 3 + 2].id %>
+        <%= label_tag hotels[i * 3 + 2].name %><br/>
+      <% end %>
+
+      <% if left_num > 0 %>
+
+        <% if left_num == 2 %>
+          <%= check_box_tag 'tourist_route[hotel_ids][]', hotels[hotels.count - 2].id %>
+          <%= label_tag hotels[hotels.count - 2].name %> &emsp;
+        <% end %>
+
+        <%= check_box_tag 'tourist_route[hotel_ids][]', hotels[hotels.count - 1].id %>
+        <%= label_tag hotels[hotels.count - 1].name %>
+
+      <% end %>
+
+      <% if Hotel.all.size == 0 %>
+        当前还没有添加的酒店哦！您需要先使用管理员账号添加酒店！
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :air_routes, "航空路线", class: "mb-2", style: "display: block; font-size: large; font-weight: bold" %>
+
+    <div style="padding-left: 20px; padding-top: 10px;padding-bottom: 10px;
+      border:1px dashed #c6c7c8; display: block"
+         class="mt-2 mb-3 rounded-3 d-3">
+      <% air_routes = AirRoute.all %>
+      <% air_route_group_num = air_routes.count / 4 %>
+      <% left_num = air_routes.count % 4 %>
+
+      <%# AirRoute.all.each do |air_route| %>
+      <%#= check_box_tag 'tourist_route[air_route_ids][]', air_route.id %>
+      <%#= label_tag air_route.to_name %>
+      <%# end %>
+
+      <% air_route_group_num.times do |i| %>
+        <%= check_box_tag 'tourist_route[air_route_ids][]', air_routes[i * 4].id %>
+        <%= label_tag air_routes[i * 4].to_name %> &emsp;
+        <%= check_box_tag 'tourist_route[air_route_ids][]', air_routes[i * 4 + 1].id %>
+        <%= label_tag air_routes[i * 4 + 1].to_name %> &emsp;
+        <%= check_box_tag 'tourist_route[air_route_ids][]', air_routes[i * 4 + 2].id %>
+        <%= label_tag air_routes[i * 4 + 2].to_name %> &emsp;
+        <%= check_box_tag 'tourist_route[air_route_ids][]', air_routes[i * 4 + 3].id %>
+        <%= label_tag air_routes[i * 4 + 3].to_name %><br/>
+      <% end %>
+
+
+      <% if left_num > 0 %>
+
+        <% if left_num == 3 %>
+          <%= check_box_tag 'tourist_route[air_route_ids][]', air_routes[air_routes.count - 3].id %>
+          <%= label_tag air_routes[air_routes.count - 3].to_name %> &emsp;
+        <% end %>
+
+        <% if left_num == 2 %>
+          <%= check_box_tag 'tourist_route[air_route_ids][]', air_routes[air_routes.count - 2].id %>
+          <%= label_tag air_routes[air_routes.count - 2].to_name %> &emsp;
+        <% end %>
+
+        <%= check_box_tag 'tourist_route[air_route_ids][]', air_routes[air_routes.count - 1].id %>
+        <%= label_tag air_routes[air_routes.count - 1].to_name %>
+
+      <% end %>
+
+
+      <% if AirRoute.all.size == 0 %>
+        当前还没有添加的航空路线哦！您需要先使用管理员账号添加航空路线！
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group mb-3">
+    <% form.label :user_id %>
+    <%= form.number_field :user_id,
+                          id: :tourist_route_user_id,
+                          class: "form-control form-control-lg",
+                          value: current_user.id,
+                          type: :hidden %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.submit "确认", class: "btn btn-primary" %>
+    <%= link_to "返回", tourist_routes_path, class: "btn btn-outline-primary" %>
+  </div>
+<% end %>

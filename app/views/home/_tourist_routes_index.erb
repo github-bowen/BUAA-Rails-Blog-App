@@ -1,0 +1,50 @@
+<div id="tourist_routes">
+  <% @tourist_routes = TouristRoute.where(user_id: current_user.id) %>
+  <% if @tourist_routes.size > 0 %>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <% @tourist_routes.each_with_index do |tourist_route, i| %>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="card-title" style="font-size: x-large; font-weight: bold;">
+<!--                旅游路线 <%#= i + 1 %>-->
+                <%= tourist_route.name %>
+              </h3>
+              <p class="card-text mx-auto">
+                出发地：<%= tourist_route.origin %><br/>
+                目的地：<%= tourist_route.destination %><br/>
+                总天数：<%= tourist_route.total_days %><br/>
+                总开销：<%= tourist_route.cost %><br/>
+                旅行社：<%= tourist_route.agency %><br/>
+                酒店：<%= tourist_route.hotels.all.map(&:name).join(", ") %>
+                <% if tourist_route.hotels.all.size == 0 %>无<% end %><br/>
+                航空路线：<%= tourist_route.air_routes.all.map(&:to_name).join(", ") %>
+                <% if tourist_route.air_routes.all.size == 0 %>无<% end %>
+              </p>
+              <div class="d-grid gap-1 d-md-flex justify-content-md-center">
+                <%= link_to "修改", edit_tourist_route_path(tourist_route),
+                            class: "btn btn-success btn-sm mt-sm-0 mb-sm-0" %>
+                <%= button_to "删除", tourist_route,
+                              method: :delete, form: { data: { turbo_confirm: '您确定要删除此旅游路线吗？' } },
+                              class: "btn btn-danger btn-sm mt-sm-0 mb-sm-0" %>
+              </div>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">最后一次修改于
+                <%= time_ago_in_words tourist_route.updated_at.localtime %>
+                前
+              </small>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="col-10 mx-auto">
+      <h3 class="mt-0 mb-4 text-center">
+        暂无旅游路线~
+      </h3>
+    </div>
+  <% end %>
+</div>
+

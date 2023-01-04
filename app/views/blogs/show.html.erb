@@ -1,0 +1,181 @@
+<div class="col-10 mx-auto mt-1 mb-5">
+  <div class="card shadow mb-0">
+    <div>
+      <div class="card-header" style="margin: 0; padding: 0;">
+        <%= image_tag @blog.get_or_default_image,
+                      style: "width: 100%; height: 450px; object-fit: cover; margin-right: 370px;",
+                      class: "mt-0 rounded-0" %>
+      </div>
+
+    </div>
+
+    <div class="card-body">
+      <div class="container">
+
+        <div class="d-grid gap-2 d-md-flex justify-content-between mb-4">
+          <%= image_tag(@blog.user.get_or_default_avatar,
+                        style: "width: 100px; height: 100px; object-fit: cover; object-position: center",
+                        class: "mt-3 rounded-circle") %>
+          <div style="margin-left: 10px; margin-right: 530px; margin-top: 17px;">
+            <p style="margin-top: 0; font-size: xx-large; font-weight: bold"><%= @blog.title %></p>
+            <div class="text-success">发布于 <%= @blog.created_at.localtime.strftime '%Y-%m-%d %H:%M:%S' %>，
+              <%= time_ago_in_words @blog.created_at.localtime %>前。
+            </div>
+          </div>
+          <div style="margin-top: 25px;">
+            <span><i class="bi-eye text-secondary"></i> <%= @blog.view_times %></span>
+          </div>
+        </div>
+
+
+        <div class="mt-2">
+          <!--          <p>-->
+          <!--            点赞数：<%#= @blog.votes %>-->
+          <%#= form_with(model: blog, url: blog_url(blog)) do |form| %>
+          <%#= form.submit class: "bi-hand-thumbs-up" %>
+          <%# end %>
+          <!--          </p>-->
+          <div class="d-grid gap-4 d-md-flex justify-content-md-start">
+            <p>
+              <strong>发表用户：</strong><%= @blog.user.username %>
+            </p>
+            <p>
+              <strong> 邮箱：</strong><%= @blog.user.email %>
+            </p>
+          </div>
+
+          <style>
+              .bor {;
+                  width: 300px;
+                  height: 60px;
+                  margin-top: 10px
+              }
+
+              span {
+                  display: block
+              }
+
+              /*css注释说明：让span形成块*/
+          </style>
+
+          <div style="padding: 15px 20px 5px; border:1px dashed orangered; display: block"
+               class="mb-3 rounded-3 text-secondary">
+
+            <div class="d-grid gap-5 d-md-flex justify-content-md-start mb-0">
+              <p>
+                <strong>出发地：</strong><%= @blog.tourist_route.origin %>
+              </p>
+              <p>
+                <strong>目的地：</strong><%= @blog.tourist_route.destination %>
+              </p>
+              <p>
+                <strong>出行天数：</strong><%= @blog.tourist_route.total_days %> 天
+              </p>
+              <p>
+                <strong>人均费用：</strong><%= @blog.tourist_route.cost %> 元
+              </p>
+              <p>
+                <strong>旅行社：</strong><%= @blog.tourist_route.agency %>
+              </p>
+            </div>
+
+            <div class="mt-0 mb-3">
+              <% if @blog.tourist_route.hotels and @blog.tourist_route.hotels.size > 0 %>
+                <strong>所住酒店：</strong>
+                <%= @blog.tourist_route.hotels.map(&:name).join('，') %>
+                <%# @blog.tourist_route.hotels.each do |hotel| %>
+                <!--                <%#= hotel.name %>，-->
+                <%# end %>
+              <% end %>
+            </div>
+
+            <div class="mt-0 mb-3">
+              <% if @blog.tourist_route.air_routes and @blog.tourist_route.air_routes.size > 0 %>
+                <strong>搭乘航线：</strong>
+                <%= @blog.tourist_route.air_routes.map { |air_route|
+                  air_route.show
+                }.join('，') %>
+              <% end %>
+            </div>
+
+
+          </div>
+
+          <div class="mt-1 mb-1">
+            <strong class="text-decoration-underline">正文:</strong>
+          </div>
+
+          <div style="padding-left: 20px; padding-top: 10px;padding-bottom: 10px;
+            border:1px dashed #c6c7c8; display: block"
+               class="mt-2 mb-3 rounded-3 d-3">
+            <div class="trix-content">
+              <%= @blog.content %>
+            </div>
+          </div>
+        </div>
+
+        <% if (!current_user.nil?) && (current_user.id == @blog.user_id) %>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <%= link_to "编辑", edit_blog_path(@blog), class: "btn btn-outline-warning mt-2 " %>
+            <%= link_to "返回", blogs_path, class: "btn btn-outline-primary mt-2" %>
+            <%= button_to "删除", @blog, method: :delete,
+                          form: { data: { turbo_confirm: '您确定要删除此博客吗？' } },
+                          class: "btn btn-outline-danger mt-2", style: "break-inside: avoid" %>
+          </div>
+        <% else %>
+          <%= link_to "返回", blogs_path, class: "btn btn-outline-primary mt-2" %>
+        <% end %>
+      </div>
+      <br>
+      <!--    <button style="float: right">button</button>-->
+    </div>
+    <div class="card shadow">
+      <div class="grid text-lg-center">
+        <div class="card-header">
+          <h2 class="card-subtitle" style="font-weight: bold; font-size: xx-large">评论</h2>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div id="comments">
+            <%#= render :partial => @blog.comments %>
+
+            <ul class="list-group list-group-flush">
+              <% @blog.comments.each_with_index do |comment, count| %>
+                <li class="list-group-item">
+                  <%= render 'comments/comment', comment: comment, count: count + 1 %>
+                </li>
+              <% end %>
+
+
+              <li class="list-group-item">
+                <% if !current_user.nil? %>
+                  <%= form_for [@blog, Comment.new] do |f| %>
+                    <p>
+                      <%= f.label :content, "发表评论", class: "text-dark mt-3",
+                                  style: "font-weight: bold; font-size: large" %> <br/>
+                      <%= f.text_area :content, :rows => 3, class: "mt-3 w-100 form-control",
+                                      placeholder: "请在此输入评论" %>
+                    </p>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <%= f.submit "提交评论", class: "btn btn-outline-success pull-right" %>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="text-center mt-3 mb-3" style="font-size: large;">
+                    <%= link_to '登录', new_user_session_path %>后才能发表评论哦~
+                  </div>
+                <% end %>
+              </li>
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
