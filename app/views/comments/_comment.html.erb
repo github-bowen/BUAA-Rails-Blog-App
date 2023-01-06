@@ -12,17 +12,30 @@
   <% user = User.find_by id: comment.user_id %>
 
   <div class="d-grid gap-2 d-md-flex justify-content-between mb-0">
-    <div class="text-dark mt-1" style="font-size: large">
-      <%= label_tag 'count', count.to_s + "楼", style: "font-weight: bold" %>，由用户
-      <%= label_tag "username", user.username, class: "text-decoration-underline" %> 发表：
+    <div class="d-grid gap-2 d-md-flex justify-content-start mb-0">
+
+      <%= link_to image_tag(user.get_or_default_avatar,
+                            style: "width: 40px; height: 40px; object-fit: cover; object-position: center",
+                            class: "mt-1 rounded-circle"),
+                  user_details_url(user.id) %>
+
+      <div class="text-dark mt-2 mx-1" style="font-size: large">
+        <%= label_tag 'count', count.to_s + "楼", style: "font-weight: bold" %>，由用户
+        <% if current_user && user == current_user %>
+          <%= link_to user.username, current_user_details_path %> 发表：
+        <% else %>
+          <%= link_to user.username, user_details_url(user.id) %> 发表：
+        <% end %>
+      </div>
     </div>
 
     <% if current_user and (comment.user_id == current_user.id) %>
       <%= button_to "删除评论", [@blog, comment], method: :delete,
                     data: { confirm: 'Are you sure?' },
-                    class: "btn btn-outline-danger btn-sm float-right mt-1" %>
+                    class: "btn btn-outline-danger btn-sm float-right mt-2 mx-1" %>
     <% end %>
   </div>
+
 
   <% if current_user and (comment.user_id == current_user.id) %>
     <div class="text-success mt-0 text-start" style="font-style: italic">

@@ -8,4 +8,8 @@ class Hotel < ApplicationRecord
   # has_many :hotel_tourist_route_tables, dependent: :destroy
 
   has_and_belongs_to_many :tourist_routes #, join_table: 'hotels_tourist_routes'
+
+  def show
+    self.name + "（类型：" + self.types + "，星级：" + self.rate.to_s + "，位置：" + self.location + ")"
+  end
 end

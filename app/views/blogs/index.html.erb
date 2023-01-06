@@ -39,7 +39,11 @@
                     <ul class="mb-0">
                       <li>
                         <% user = User.find(blog.user_id) %><i class="fas fa-user"></i>
-                        <%= link_to user.username, blog, class: "" %>
+                        <% if current_user && user == current_user %>
+                          <%= link_to user.username, current_user_details_path, class: "" %>
+                        <% else %>
+                          <%= link_to user.username, user_details_url(user.id) %>
+                        <% end %>
                       </li>
                       <li>
                         <i class="far fa-comment-dots"></i><span><%= link_to blog.comments.size, blog %></span>
@@ -78,122 +82,5 @@
     </div>
   </section>
 
-  <style type="text/css">body {
-      margin-top: 0;
-  }
 
-  .card-style2 {
-      position: relative;
-      display: flex;
-      transition: all 300ms ease;
-      border: 1px solid rgba(0, 0, 0, 0.09);
-      padding: 0;
-      height: 100%;
-  }
-
-  .card-style2 .card-img {
-      position: relative;
-      display: block;
-      background: #ffffff;
-      overflow: hidden;
-      border-radius: 0.25rem;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-  }
-
-  .card-style2 .card-img img {
-      transition: all 0.3s linear 0s;
-  }
-
-  .card-style2:hover .card-img img {
-      transform: scale(1.05);
-  }
-
-  .card-style2 .date {
-      position: absolute;
-      right: 10px;
-      top: 45px;
-      z-index: 1;
-      color: #16bae1;
-      overflow: hidden;
-      padding-bottom: 10px;
-      line-height: 24px;
-      text-align: center;
-      border: 2px solid #ededed;
-      display: inline-block;
-      background-color: #ffffff;
-      text-transform: uppercase;
-      border-radius: 0.25rem;
-  }
-
-  .card-style2 .date span {
-      position: relative;
-      color: #ffffff;
-      font-weight: 500;
-      font-size: 20px;
-      display: block;
-      text-align: center;
-      padding: 12px;
-      margin-bottom: 10px;
-      background-color: #00baee;
-      border-radius: 0.25rem;
-  }
-
-  .card-style2 .card-body {
-      position: relative;
-      display: block;
-      background: #ffffff;
-      padding: 2rem;
-  }
-
-  .card-style2 .card-body h3 {
-      margin-bottom: 0.8rem;
-  }
-
-  .card-style2 .card-body h3 a {
-      color: #004975;
-  }
-
-  .card-style2 .card-body h3 a:hover {
-      color: #00baee;
-  }
-
-  .card-style2 .card-footer {
-      border-top: 1px solid rgba(0, 0, 0, 0.2);
-      background: transparent;
-      padding-right: 2rem;
-      padding-left: 0;
-      margin-bottom: 0;
-      padding-bottom: 0;
-      -ms-flex-align: end;
-      align-items: center;
-  }
-
-  .card-style2 .card-footer ul {
-      display: flex;
-      justify-content: space-between;
-      list-style: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-  }
-
-  .card-style2 .card-footer ul li {
-      font-size: 16px;
-  }
-
-  .card-style2 .card-footer ul li a {
-      color: #394952;
-  }
-
-  .card-style2 .card-footer ul li a:hover {
-      color: #00baee;
-  }
-
-  .card-style2 .card-footer ul li i {
-      color: #00baee;
-      font-size: 14px;
-      margin-right: 8px;
-  }
-  </style>
-  <script type="text/javascript"></script>
 </div>

@@ -11,9 +11,13 @@
         <div class="card-text">
 
           <div class="field">
-            <%= image_tag(current_user.get_or_default_avatar,
-                          style: "width: 120px; height: 120px; object-fit: cover; object-position: center",
-                          class: "rounded-top") %>
+            <div class="card-style2" style="border-color: white">
+              <div class="card-img" style="border-color: white">
+                <%= image_tag(current_user.get_or_default_avatar,
+                              style: "width: 120px; height: 120px; object-fit: cover; object-position: center",
+                              class: "rounded-top") %>
+              </div>
+            </div>
           </div>
 
           <div class="field mt-3">

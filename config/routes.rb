@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get '/500', to: 'errors#internal_server'
   get '/422', to: 'errors#unprocessable'
 
-
   # devise_for :users
   devise_scope :user do
     #   get '/users/sign_in' => 'users/sessions#new'
@@ -32,6 +31,8 @@ Rails.application.routes.draw do
     get 'change_authority' => 'home#change_authority', as: :change_authority
     post 'change_authority' => 'home#change_authority', as: :commit_change_autority
     get 'tourist_routes' => 'home#tourist_routes', as: :tourist_routes
+    match '/:id/details' => 'home#details', via: [:get], as: :user_details
+    get 'current_user_details' => 'home#current_user_details', as: :current_user_details
     resources :tourist_routes
   end
 

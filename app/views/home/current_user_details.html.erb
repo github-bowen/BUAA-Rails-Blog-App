@@ -1,0 +1,365 @@
+<div class="col-11 mx-auto mt-5">
+  <div class="card text-center border-dark shadow shadow-lg mb-5">
+    <div class="card-header card-style2" style="margin: 0; padding: 0;">
+      <div class="card-img" style="background-color: #eeeeee">
+        <%= image_tag current_user.get_or_default_avatar,
+                      style: "width: 125px; height: 125px; object-fit: cover; object-position: center",
+                      class: "rounded-circle mt-3 mb-3" %>
+      </div>
+    </div>
+    <div class="card-body">
+      <h1 class="card-title mt-3 mb-3" style="font-weight: bold; font-size: xx-large">
+        我的个人页面
+      </h1>
+
+      <div class="card-text text-start mx-3">
+
+
+        <div style="padding: 25px 30px 5px; border:1px dashed; display: block"
+             class="border-success mb-3 rounded-3">
+
+          <!--          first row-->
+          <div class="d-grid gap-5 d-md-flex justify-content-md-between">
+            <div class="field">
+              <div class="mb-1" style="font-size: large;">
+                <%= label :username, "用户名：", style: "font-weight: bold; font-size: large;" %>
+                <%= current_user.username %>
+              </div>
+            </div>
+            <div class="field">
+              <div class="mb-1" style="font-size: large;">
+                <%= label :email, "邮箱：", style: "font-weight: bold; font-size: large;" %>
+                <%= current_user.email %>
+              </div>
+            </div>
+            <div class="field">
+              <div class="mb-1 mt-0" style="font-size: large;">
+                <%= label :role, "用户类型：", style: "font-weight: bold; font-size: large;" %>
+                <%= current_user.get_role %>
+              </div>
+            </div>
+          </div>
+
+          <!--            second row-->
+          <div class="d-grid gap-5 d-md-flex justify-content-md-between mt-3 mb-2">
+            <div class="field">
+              <div class="mb-1 mt-0" style="font-size: large;">
+                <%= label :blogs_num, "发表的博客数量：", style: "font-weight: bold; font-size: large;" %>
+                <%= current_user.blogs.size %>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="mb-1 mt-0" style="font-size: large;">
+                <%= label :tourist_route_num, "已创建的旅游路线数量：", style: "font-weight: bold; font-size: large;" %>
+                <%= current_user.tourist_routes.size %>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="mb-1 mt-0" style="font-size: large;">
+                <%= label :comments_num, "所发博客被评论次数：", style: "font-weight: bold; font-size: large;" %>
+                <% count = 0 %>
+                <% current_user.blogs.each do |blog| %>
+                  <% count += blog.comments.size %>
+                <% end %>
+                <%= count %>
+              </div>
+            </div>
+          </div>
+
+
+          <!--            third row-->
+
+          <div class="d-grid gap-5 d-md-flex justify-content-md-between mt-3 mb-2">
+            <div class="field">
+              <%= label :created_at, "注册时间：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.created_at.localtime.strftime '%Y-%m-%d %H:%M:%S' %>
+            </div>
+
+            <div class="field">
+              <%= label :totalDays, "旅游总天数：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.tourist_routes.map { |route| route.total_days }.sum %>
+            </div>
+
+            <div class="field">
+              <%= label :totalDays, "旅游总开销：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.tourist_routes.map { |route| route.cost }.sum %>
+            </div>
+          </div>
+
+          <div class="d-grid gap-5 d-md-flex justify-content-md-between mt-3 mb-2">
+            <div class="field">
+              <%= label :visited_places, "去过的地方：", style: "font-weight: bold; font-size: large;" %>
+              <%= current_user.tourist_routes.map { |route| route.destination }.join("，") %>
+              <% if current_user.tourist_routes.nil? or current_user.tourist_routes.blank? %>无
+              <% end %>
+            </div>
+          </div>
+
+          <div class="d-grid gap-5 d-md-flex justify-content-md-between mt-3 mb-0">
+            <div class="field">
+              <%= label :taken_air_routes, "乘坐过的航线：", class: "mb-1",
+                        style: "font-weight: bold; font-size: large;" %>
+              <% if current_user.tourist_routes.blank? or current_user.tourist_routes.map { |route|
+                route.air_routes.map(&:show).join("\n")
+              }.join("\n").split("\n").blank? %>
+                无
+              <% end %>
+              <ul>
+                <% current_user.tourist_routes.map { |route|
+                  route.air_routes.map(&:show).join("\n")
+                }.join("\n").split("\n").each do |route| %>
+                  <li class="mt-1 mb-1"><%= route %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <div class="d-grid gap-5 d-md-flex justify-content-md-between mt-0 mb-2">
+            <div class="field">
+              <%= label :hotels, "住过的酒店：", class: "mb-1",
+                        style: "font-weight: bold; font-size: large;" %>
+              <% if current_user.tourist_routes.blank? or current_user.tourist_routes.map { |route|
+                route.hotels.map(&:show).join("\n")
+              }.join("\n").split("\n").blank? %>
+                无
+              <% end %>
+              <ul>
+                <% current_user.tourist_routes.map { |route|
+                  route.hotels.map(&:show).join("\n")
+                }.join("\n").split("\n").each do |hotel| %>
+                  <li class="mt-1 mb-1"><%= hotel %></li>
+                <% end %>
+              </ul>
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <% blogs = current_user.blogs %>
+        <% if blogs.any? %>
+          <div style="padding: 25px 30px 5px; border:1px dashed; display: block"
+               class="border-primary mb-3 rounded-3">
+            <p style="font-weight: bold; font-size: large">发表的博客：</p>
+            <div class="row mb-3">
+              <% month_map = { 1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr',
+                               5 => 'May', 6 => 'Jun', 7 => 'Jul', 8 => 'Aug',
+                               9 => 'Sep', 10 => 'Oct', 11 => 'Nov', 12 => 'Dec' } %>
+
+              <% blogs.each do |blog| %>
+                <% day = blog.created_at.localtime.strftime '%d' %>
+                <% month = blog.created_at.localtime.strftime '%m' %>
+                <div class="col-lg-4 col-md-6 mb-lg-4">
+                  <article class="card card-style2 shadow-lg mb-0" style="width: 310px">
+                    <div class="card-img">
+                      <div>
+                        <%= link_to image_tag(blog.get_or_default_image,
+                                              style: "width: 310px; height: 180px; object-fit: cover; object-position: center",
+                                              class: "rounded-top"), blog %>
+                      </div>
+                      <!--                  <img class="rounded-top" src="https://via.placeholder.com/350x280/6A5ACD/000000" alt="...">-->
+                      <div class="date"><span><%= day %></span><%= month_map[month.to_i] %></div>
+                    </div>
+                    <div class="card-body mb-0" style="height: auto">
+                      <h3 class="h5"><%= link_to blog.title, blog %></h3>
+                      <% tourist_route = TouristRoute.find(blog.tourist_route_id) %>
+                      <p class="display-30">
+                        <%= label_tag 'tourist_route_name', tourist_route.name,
+                                      style: "font-weight: bold" %>：<%= tourist_route.origin_dest %><br/>
+                        旅程共<%= tourist_route.total_days %>天，花费<%= tourist_route.cost %>元
+                      </p>
+                      <%= link_to '查看详情', blog, class: "read-more" %>
+                      <div class="card-footer mt-3 mb-0">
+                        <ul class="mb-0">
+                          <li>
+                            <i class="fas fa-user"></i>
+                            <%= link_to current_user.username, blog, class: "" %>
+                          </li>
+                          <li>
+                            <i class="far fa-comment-dots"></i><span><%= link_to blog.comments.size, blog %></span>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        <% end %>
+
+
+
+        <% tourist_routes = current_user.tourist_routes %>
+        <% if (!tourist_routes.nil?) and (!tourist_routes.blank?) %>
+          <div style="padding: 25px 30px 30px; border:1px dashed; display: block"
+               class="border-info mb-3 rounded-3">
+            <p style="font-weight: bold; font-size: large">添加的旅游路线：</p>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+              <% tourist_routes.each_with_index do |tourist_route, i| %>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="card-body text-center">
+                      <h3 class="card-title" style="font-size: x-large; font-weight: bold;">
+                        <!--                旅游路线 <%#= i + 1 %>-->
+                        <%= tourist_route.name %>
+                      </h3>
+                      <p class="card-text mx-auto">
+                        出发地：<%= tourist_route.origin %><br/>
+                        目的地：<%= tourist_route.destination %><br/>
+                        总天数：<%= tourist_route.total_days %><br/>
+                        总开销：<%= tourist_route.cost %><br/>
+                        旅行社：<%= tourist_route.agency %><br/>
+                        酒店：<%= tourist_route.hotels.all.map(&:name).join(", ") %>
+                        <% if tourist_route.hotels.all.size == 0 %>无
+                        <% end %><br/>
+                        航空路线：<%= tourist_route.air_routes.all.map(&:to_name).join(", ") %>
+                        <% if tourist_route.air_routes.all.size == 0 %>无
+                        <% end %>
+                      </p>
+                    </div>
+                    <div class="card-footer text-center">
+                      <small class="text-muted">最后一次修改于
+                        <%= time_ago_in_words tourist_route.updated_at.localtime %>
+                        前
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <style type="text/css">body {
+      margin-top: 0;
+  }
+
+  .card-style2 {
+      position: relative;
+      display: flex;
+      transition: all 300ms ease;
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      padding: 0;
+      height: 100%;
+  }
+
+  .card-style2 .card-img {
+      position: relative;
+      display: block;
+      background: #ffffff;
+      overflow: hidden;
+      border-radius: 0.25rem;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+  }
+
+  .card-style2 .card-img img {
+      transition: all 0.3s linear 0s;
+  }
+
+  .card-style2:hover .card-img img {
+      transform: scale(1.05);
+  }
+
+  .card-style2 .date {
+      position: absolute;
+      right: 10px;
+      top: 45px;
+      z-index: 1;
+      color: #16bae1;
+      overflow: hidden;
+      padding-bottom: 10px;
+      line-height: 24px;
+      text-align: center;
+      border: 2px solid #ededed;
+      display: inline-block;
+      background-color: #ffffff;
+      text-transform: uppercase;
+      border-radius: 0.25rem;
+  }
+
+  .card-style2 .date span {
+      position: relative;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 20px;
+      display: block;
+      text-align: center;
+      padding: 12px;
+      margin-bottom: 10px;
+      background-color: #00baee;
+      border-radius: 0.25rem;
+  }
+
+  .card-style2 .card-body {
+      position: relative;
+      display: block;
+      background: #ffffff;
+      padding: 2rem;
+  }
+
+  .card-style2 .card-body h3 {
+      margin-bottom: 0.8rem;
+  }
+
+  .card-style2 .card-body h3 a {
+      color: #004975;
+  }
+
+  .card-style2 .card-body h3 a:hover {
+      color: #00baee;
+  }
+
+  .card-style2 .card-footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      background: transparent;
+      padding-right: 2rem;
+      padding-left: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      -ms-flex-align: end;
+      align-items: center;
+  }
+
+  .card-style2 .card-footer ul {
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+  }
+
+  .card-style2 .card-footer ul li {
+      font-size: 16px;
+  }
+
+  .card-style2 .card-footer ul li a {
+      color: #394952;
+  }
+
+  .card-style2 .card-footer ul li a:hover {
+      color: #00baee;
+  }
+
+  .card-style2 .card-footer ul li i {
+      color: #00baee;
+      font-size: 14px;
+      margin-right: 8px;
+  }
+  </style>
+  <script type="text/javascript"></script>
+
+
+</div>

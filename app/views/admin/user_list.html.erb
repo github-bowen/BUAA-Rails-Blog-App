@@ -8,9 +8,12 @@
         <div class="row">
           <!-- Grid column -->
           <div class="col-md-12">
-            <h2 class="mt-3 mb-4 text-center" style="font-weight: bold">
+            <h2 class="mt-3 mb-3 text-center" style="font-weight: bold">
               用户列表（管理员操作）
             </h2>
+            <h3 class="mt-1 mb-3 text-center" style="font-family: KaiTi, serif; font-size: large">
+              注：点击<strong>头像</strong>可以查看该用户详细信息
+            </h3>
             <!--                        <div class="input-group md-form form-sm form-2 pl-0">-->
             <!--                          <input class="form-control my-0 py-1 pl-3 purple-border" type="text" placeholder="Search something here..." aria-label="Search">-->
             <!--                          <span class="input-group-addon waves-effect purple lighten-2" id="basic-addon1"><a><i class="fa fa-search white-text" aria-hidden="true"></i></a></span>-->
@@ -25,6 +28,7 @@
           <thead>
           <tr>
             <th>序号</th>
+            <th>头像</th>
             <th>用户名</th>
             <th>邮箱</th>
             <th>注册时间</th>
@@ -42,6 +46,16 @@
               <th class="align-middle" scope="row">
                 <%= i + 1 %>
               </th>
+              <td class="align-middle">
+                <div class="card-style2" style="background-color: inherit; border-width: 0">
+                  <div class="card-img" style="background-color: inherit; border-width: 0">
+                    <%= link_to image_tag(user.get_or_default_avatar,
+                                          style: "width: 45px; height: 45px; object-fit: cover; object-position: center",
+                                          class: "rounded-circle"),
+                                user_details_path(user) %>
+                  </div>
+                </div>
+              </td>
               <td class="align-middle">
                 <div style="font-weight: bold">
                   <%= user.username %>

@@ -1,10 +1,12 @@
 <div class="col-10 mx-auto mt-1 mb-5">
   <div class="card shadow mb-0">
     <div>
-      <div class="card-header" style="margin: 0; padding: 0;">
-        <%= image_tag @blog.get_or_default_image,
-                      style: "width: 100%; height: 450px; object-fit: cover; margin-right: 370px;",
-                      class: "mt-0 rounded-0" %>
+      <div class="card-header card-style2" style="margin: 0; padding: 0;">
+        <div class="card-img">
+          <%= image_tag @blog.get_or_default_image,
+                        style: "width: 100%; height: 450px; object-fit: cover; margin-right: 370px;",
+                        class: "mt-0 rounded-0" %>
+        </div>
       </div>
 
     </div>
@@ -13,9 +15,24 @@
       <div class="container">
 
         <div class="d-grid gap-2 d-md-flex justify-content-between mb-4">
-          <%= image_tag(@blog.user.get_or_default_avatar,
-                        style: "width: 100px; height: 100px; object-fit: cover; object-position: center",
-                        class: "mt-3 rounded-circle") %>
+          <div class="card-style2" style="border-color: white">
+            <div class="card-img" style="border-color: white">
+              <% user = @blog.user %>
+              <% if user == current_user %>
+                <%= link_to image_tag(@blog.user.get_or_default_avatar,
+                                      style: "width: 100px; height: 100px; object-fit: cover; object-position: center",
+                                      class: "mt-3 rounded-circle"),
+                            current_user_details_path, class: "" %>
+              <% else %>
+                <%= link_to image_tag(@blog.user.get_or_default_avatar,
+                                      style: "width: 100px; height: 100px; object-fit: cover; object-position: center",
+                                      class: "mt-3 rounded-circle"),
+                            user_details_url(user.id) %>
+              <% end %>
+              <%= %>
+            </div>
+          </div>
+
           <div style="margin-left: 10px; margin-right: 530px; margin-top: 17px;">
             <p style="margin-top: 0; font-size: xx-large; font-weight: bold"><%= @blog.title %></p>
             <div class="text-success">发布于 <%= @blog.created_at.localtime.strftime '%Y-%m-%d %H:%M:%S' %>，
@@ -37,7 +54,12 @@
           <!--          </p>-->
           <div class="d-grid gap-4 d-md-flex justify-content-md-start">
             <p>
-              <strong>发表用户：</strong><%= @blog.user.username %>
+              <% user = @blog.user %>
+              <% if current_user && user == current_user %>
+                <strong>发表用户：</strong><%= link_to user.username, current_user_details_path %>
+              <% else %>
+                <strong>发表用户：</strong><%= link_to user.username, user_details_url(user.id) %>
+              <% end %>
             </p>
             <p>
               <strong> 邮箱：</strong><%= @blog.user.email %>
@@ -86,6 +108,8 @@
                 <%# @blog.tourist_route.hotels.each do |hotel| %>
                 <!--                <%#= hotel.name %>，-->
                 <%# end %>
+              <% else %>
+                <strong>所住酒店：</strong>无
               <% end %>
             </div>
 
@@ -95,6 +119,8 @@
                 <%= @blog.tourist_route.air_routes.map { |air_route|
                   air_route.show
                 }.join('，') %>
+              <% else %>
+                <strong>搭乘航线：</strong>无
               <% end %>
             </div>
 
