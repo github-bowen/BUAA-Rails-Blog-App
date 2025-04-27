@@ -161,3 +161,46 @@ After creation:
 Delete a blog:
 
 ![1](./img/20.png)
+
+## Troubleshooting (Windows Specific Issues)
+
+### Issue: `uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger`
+
+If you encounter the following error when running Rails commands on Windows:
+
+```shell
+C:/Ruby31-x64/lib/ruby/gems/3.1.0/gems/activesupport-7.0.8.7/lib/active_support/logger_thread_safe_level.rb:12:in `<module:LoggerThreadSafeLevel>': uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger (NameError)
+```
+
+#### Solution
+
+1. **Manually Load `Logger`**
+   Open `config/boot.rb` and add the following line at the top:
+
+   ```ruby
+   require 'logger'
+   ```
+
+2. **Disable `bootsnap` Temporarily**
+   In the same file, comment out the following line:
+
+   ```ruby
+   # require 'bootsnap/setup'
+   ```
+
+3. **Clear Cache**
+   Manually delete the `tmp/cache/bootsnap` folder to ensure no old cache files interfere.
+
+4. **Reinstall Dependencies**
+   Run the following commands to reinstall dependencies:
+
+   ```shell
+   bundle install --force
+   ```
+
+5. **Restart Rails Server**
+   Restart the Rails server:
+
+   ```shell
+   rails s
+   ```

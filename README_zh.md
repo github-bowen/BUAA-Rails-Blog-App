@@ -161,3 +161,46 @@ rails s
 删除博客：
 
 ![1](./img/20.png)
+
+## 问题排查（Windows 平台特定问题）
+
+### 问题：`uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger`
+
+如果在 Windows 上运行 Rails 命令时遇到以下错误：
+
+```shell
+C:/Ruby31-x64/lib/ruby/gems/3.1.0/gems/activesupport-7.0.8.7/lib/active_support/logger_thread_safe_level.rb:12:in `<module:LoggerThreadSafeLevel>': uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger (NameError)
+```
+
+#### 解决方案
+
+1. **手动加载 `Logger`**
+   打开 `config/boot.rb` 文件，在顶部添加以下代码：
+
+   ```ruby
+   require 'logger'
+   ```
+
+2. **暂时禁用 `bootsnap`**
+   在同一文件中，注释掉以下代码：
+
+   ```ruby
+   # require 'bootsnap/setup'
+   ```
+
+3. **清理缓存**
+   手动删除 `tmp/cache/bootsnap` 文件夹，确保没有旧的缓存文件干扰。
+
+4. **重新安装依赖**
+   运行以下命令重新安装依赖：
+
+   ```shell
+   bundle install --force
+   ```
+
+5. **重启 Rails 服务器**
+   重启 Rails 服务器：
+
+   ```shell
+   rails s
+   ```
