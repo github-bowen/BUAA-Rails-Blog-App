@@ -2,6 +2,28 @@
 
 [中文版](./README_zh.md)
 
+## Table of Contents
+
+- [BUAA-Rails-Blog-App](#buaa-rails-blog-app)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+    - [System Requirements](#system-requirements)
+    - [Software Versions](#software-versions)
+  - [Installation and Setup](#installation-and-setup)
+  - [Running the Project](#running-the-project)
+  - [Project Overview](#project-overview)
+    - [Registration and Login](#registration-and-login)
+    - [Blog Browsing and Demonstration](#blog-browsing-and-demonstration)
+    - [Editing Personal Profile](#editing-personal-profile)
+    - [User Permission Management](#user-permission-management)
+    - [Viewing Registered Users (Admin Only)](#viewing-registered-users-admin-only)
+    - [Managing Hotels, Hotel Rooms, Airlines, and Flight Routes (Admin Only)](#managing-hotels-hotel-rooms-airlines-and-flight-routes-admin-only)
+    - [Travel Route Management](#travel-route-management)
+    - [Blog Operations](#blog-operations)
+  - [Troubleshooting (Windows Specific Issues)](#troubleshooting-windows-specific-issues)
+    - [Issue: `uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger`](#issue-uninitialized-constant-activesupportloggerthreadsafelevellogger)
+      - [Solution](#solution)
+
 This is a travel blog sharing web application developed based on the Ruby on Rails framework. It is also the final project for the "Ruby Programming" course at Beihang University.
 
 ## Requirements

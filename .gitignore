@@ -40,3 +40,5 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+db/development.sqlite3

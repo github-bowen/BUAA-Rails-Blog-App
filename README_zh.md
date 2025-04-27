@@ -2,6 +2,28 @@
 
 [English Version](./README.md)
 
+## 目录
+
+- [BUAA-Rails-Blog-App](#buaa-rails-blog-app)
+  - [目录](#目录)
+  - [环境要求](#环境要求)
+    - [系统要求](#系统要求)
+    - [软件版本](#软件版本)
+  - [安装与配置](#安装与配置)
+  - [运行项目](#运行项目)
+  - [项目说明](#项目说明)
+    - [注册与登录](#注册与登录)
+    - [博客浏览与演示](#博客浏览与演示)
+    - [修改个人资料](#修改个人资料)
+    - [用户权限管理](#用户权限管理)
+    - [查看已注册用户（管理员）](#查看已注册用户管理员)
+    - [管理酒店房间、酒店、航空公司、航线（管理员）](#管理酒店房间酒店航空公司航线管理员)
+    - [旅游路线管理](#旅游路线管理)
+    - [博客操作](#博客操作)
+  - [问题排查（Windows 平台特定问题）](#问题排查windows-平台特定问题)
+    - [问题：`uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger`](#问题uninitialized-constant-activesupportloggerthreadsafelevellogger)
+      - [解决方案](#解决方案)
+
 这是一个基于 Ruby on Rails 框架开发的旅游博客分享 Web 应用，同时也是北京航空航天大学 Ruby 语言程序设计课程的大作业项目。
 
 ## 环境要求
